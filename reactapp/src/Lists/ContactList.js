@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Table, Space} from 'antd';
 import 'antd/dist/antd.css';
 
+
   
+const ContactList = props => {
+
+  useEffect(() => {
+   console.log('props.contact update')
+  }, [props.contacts])
+
   const columns = [
     {
       title: 'Name',
@@ -27,17 +34,14 @@ import 'antd/dist/antd.css';
   {
     title: 'Action',
     key: 'action',
-    render: (text, record) => (
+    render: (text, record ) => (
       <Space size="middle">
-        <a>Edit</a>
-        <a>Delete</a>
+        <a onClick={()=>props.editContact(record)}>Edit</a>
+        <a onClick={()=>props.deleteContact(record.key)}>Delete</a>
       </Space>
     ),
   },
   ];
-
-
-const ContactList = props => {
     return (
     <Table dataSource={props.contacts} columns={columns} />
     );
